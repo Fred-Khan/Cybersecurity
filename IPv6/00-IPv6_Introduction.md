@@ -1,162 +1,170 @@
-IPv6 Addresses
-==============
-1. IPv6 addresses are written using hexadecimal, as opposed to dotted decimal in IPv4.
-2. Because a hexadecimal digit uses 4 bits this means that an IPv6 address consists of 32 hexadecimal numbers as opposed to 32 binary numbers in IPv4.
-3. An Ipv6 address uses 128 bits.
-4. These digits are grouped in 4’s giving 8 groups or blocks. The groups are written with a : (colon) as a separator.
-5. Here is an IPv6 address example: 
-	
-	2001:0:9D38:6AB8:1C48:3A1C:A95A:B1C2
+# IPv6 Addresses
 
-6. The first 64 bits are used for routing of which:
- a. The first 48 bits is the routing prefix known as the Global Unicast Address.
- b. The next 16 bits is used for the Subnet ID.
+1. IPv6 addresses are written using **hexadecimal notation**, as opposed to dotted decimal in IPv4.
 
+2. Because a hexadecimal digit represents 4 bits, an IPv6 address consists of **32 hexadecimal digits** (128 bits), compared to 32 bits in IPv4.
 
-7. The are 3 type of IPv6 addresses:
-a. Global Unicast Address –Scope Internet- routed on Internet
-b. Link Local – Scope network link- Not Routed internally or externally.
-c. Unique Local — Scope Internal Network or VPN internally routable, but Not routed on Internet
-d. Loop Back
+3. An IPv6 address uses **128 bits**.
 
-A. Global and Public Addresses
-===============================
-Global addresses are routable on the internet and start with 2001.
+4. These digits are grouped into **8 blocks of 4 hexadecimal digits** (16 bits each). The groups are separated by colons (`:`).
 
-These addresses are known as global Unicast addresses and are the equivalent of the public addresses of IPv4 networks.
+5. Example IPv6 address:
+   `2001:0:9D38:6AB8:1C48:3A1C:A95A:B1C2`
 
-The Internet authorities allocate address blocks to ISPs who in turn allocate them to their customers.
+6. The first **64 bits** are used for **network routing**, consisting of:
 
-See: https://www.iana.org/assignments/ipv6-unicast-address-assignments/ipv6-unicast-address-assignments.xhtml
+   * The first **48 bits** as the **Global Routing Prefix** (equivalent to a public network ID).
+   * The next **16 bits** as the **Subnet ID**.
 
+7. There are **four types of IPv6 addresses**:
 
-B. Internal Addresses- Link Local and Unique Local
-==================================================
-In IPv4 internal addresses use the reserved number ranges 10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16 and 169.254.0.0/16.
+   * **Global Unicast Address** – Internet-routable (public).
+   * **Link-Local Address** – Used for communication within a link; not routed beyond the local link.
+   * **Unique Local Address** – Routable internally (like IPv4 private addresses), not Internet-routable.
+   * **Loopback Address** – `::1`, used for local testing like `127.0.0.1` in IPv4.
 
-These addresses are not routed on the Internet and are reserved for internal networks.
+---
 
-IPv6 also has two Internal address types.
+# A. Global and Public Addresses
 
-1. Link Local
-2. Unique Local
+Global addresses are routable on the Internet and typically start with **2000::/3** (commonly `2001::/16`).
 
+* These are known as **Global Unicast Addresses**, equivalent to IPv4 public addresses.
+* They are assigned by Internet authorities to ISPs, who allocate them to customers.
 
-B-1. Link Local
-===============
-These are meant to be used inside an internal network, and again they are not routed on the Internet.
+🔗 Reference: [IANA IPv6 Unicast Assignments](https://www.iana.org/assignments/ipv6-unicast-address-assignments/ipv6-unicast-address-assignments.xhtml)
 
-It is equivalent to the IPv4 address 169.254.0.0/16 which is allocated on an IPv4 network when no DHCP server is found.
+---
 
-Link local addresses start with fe80
+# B. Internal Addresses – Link Local and Unique Local
 
-They are restricted to a link and are not routed on the Internal network or the Internet.
+In IPv4, internal addresses use these reserved ranges:
 
-Link Local addresses are self assigned i.e. they do not require a DHCP server.
+* `10.0.0.0/8`
+* `172.16.0.0/12`
+* `192.168.0.0/16`
+* `169.254.0.0/16` (APIPA)
 
-A link local address is required on every IP6 interface even if no routing is present.
+IPv6 has two internal address types:
 
+1. **Link-Local**
+2. **Unique Local**
 
-B-2. Unique Local
-=================
-Unique Local are meant to be used inside an internal network.
+---
 
-They are routed on the Internal network but not routed on the Internet.
+## B-1. Link-Local Addresses
 
-They are equivalent to the IPv4 addresses are 10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16
+* Used for communication on the **same local link** (like ARP or routing protocols).
+* Equivalent to IPv4 APIPA `169.254.0.0/16`.
+* Always starts with the prefix `fe80::/10`.
+* Not routable beyond the link.
+* **Automatically assigned** by the operating system.
+* **Mandatory** on every IPv6-enabled interface, even without a router.
 
-The address space is divided into two /8 spaces: fc00::/8 for globally assigned addressing, and fd00::/8 for locally assigned addressing.
+> ✅ **Note:** Link-local is required and often used by routing protocols such as OSPFv3 and EIGRP for IPv6.
 
-Distinction between FC00::/8 and FD00::/8
------------------------------------------
-FC00::/8: This part of the Unique Local Addresses (ULA) space was initially intended to be managed centrally with allocations being done by a registry. However, this central allocation has not been implemented, and as a result, addresses from the FC00::/8 range are not currently being used.
+---
 
-FD00::/8: Addresses within the FD00::/8 range are intended to be generated locally without a central registry. This makes them more commonly used in practice. The addresses are pseudo-randomly generated to ensure they are unique within the organization.
+## B-2. Unique Local Addresses (ULA)
 
-Therefore, manual assignment by an organisation of private IPv6 address should use the fd00 prefix.
+* Used within an organization or VPN.
+* **Not routed on the Internet**.
+* Equivalent to IPv4 private address ranges.
+* Prefix: `fc00::/7` (commonly `fd00::/8` is used).
+
+### FC00::/8 vs FD00::/8
+
+| Prefix     | Intended Use                         | In Practice   |
+| ---------- | ------------------------------------ | ------------- |
+| `FC00::/8` | Centrally assigned (not implemented) | Not used      |
+| `FD00::/8` | Locally assigned, pseudo-random      | Commonly used |
+
+> Manual assignment of private IPv6 addresses should use the `fd00::/8` range.
+
+**Example:**
+
+```
+FD00:1234:5678:9ABC:DEF0:1234:5678:9ABC
+```
+
+---
+
+# IPv6 Addressing Scheme Example
+
+```
+2001:8003:500a:8001:e772:2e08:1def:7f8f
+```
+
+```
+2001:0DB8:4545:0003:0200:F8FF:FE21:67CF
+\__________/ \_/ \_____________________/
+     A       B             C
+```
+
+* **A**: Routing Prefix (Global Routing Prefix)
+* **B**: Subnet ID
+* **C**: Interface ID
+
+---
+
+## Routing Prefix Sub-Schema
+
+```
+2001:0DB8:4545::/48
+```
+
+* `2001:0DB8` — From Internet registry.
+* `xxxx:xxxx:4545` — Regional/Site allocation by ISP.
+
+### Subnets from `2001:0DB8:4545::/48`
+
+* First subnet: `2001:0DB8:4545:0000::/64`
+* Last subnet: `2001:0DB8:4545:FFFF::/64`
+
+There are **65,536** possible /64 subnets in a /48 prefix (`2^16`).
+
+---
+
+## Small End User Allocation Example — /60
+
+* ISP allocates a **/60** prefix:
+
+```
+2001:ACAD:1234:1230::/60
+```
+
+* 60 bits for network = 4 bits for subnetting
+* Allows for `2^4 = 16` /64 subnets
+
+### Subnet Range:
+
+* First subnet: `2001:ACAD:1234:1230::/64`
+* Last subnet: `2001:ACAD:1234:123F::/64`
+
+---
+
+## What If Prefix Is Not a Multiple of 4 or 16?
 
 Example:
-	FD00:1234:5678:9ABC:DEF0:1234:5678:9ABC
 
-
-
-
-IPV6 Addressing Scheme
-======================
-
-	2001:8003:500a:8001:e772:2e08:1def:7f8f
-
-	2001:0DB8:4545:003:0200:F8FF:FE21:67CF
-	\____________/ \_/ \_________________/
-	      A		B	    C
-
-A: Routing Prefix
-B: Subnet ID
-C: Interface ID
-
-
-Routing Prefix sub-schema
-=========================
-
-2001:0DB8 - comes from Internet Registry (5 worldwide)
-xxxx:xxxx:4545 - Region / Site added by ISP.
-
-Global Routing Prefix would be: 2001:0DB8:4545 / 48
-
-Subnets from the Global Routing Prefix of 2001:0DB8:4545 / 48
-==============================================================
-
-2001:0DB8:4545:0000 : 0000:0000:0000:0000 / 64 1st Subnet
-...
-2001:0DB8:4545:FFFF : 0000:0000:0000:0000 / 64 65,536th Subnet ie 2^16 = 65536
-
-
-Small end user might receive a /60 IPv6 from their ISP
-======================================================
-
-  60 bits = /60
-<---------------->
-2001:ACAD:1234:1230 : 0000:0000:0000:0000
-
-The subnet ID would be the 0 in :1230 ie 4 bits available to subnet.
-Therefore, you could have 2^4 = 16 /64 subnets in a /60 network
-The subnets would:
-- Start at 2001:ACAD:1234:1230 : 0000:0000:0000:0000 (1st subnet)
-- End at   2001:ACAD:1234:123F : 0000:0000:0000:0000 (16th subnet)
-
-
-
-What about when a prefix is not a multiple of 4 or 16?
-======================================================
-
-Example:
-
+```
 2001:0DB8:4545:5003:0200:F8FF:FE21:67CF /53
+```
 
- 16 : 16 : 16 : 5 
+* Prefix bits: `2001:0DB8:4545:5000::/53`
+* Network mask ends in the middle of the 4th block.
 
-Prefix would be: 2001:0DB8:4545:5000 : 0:0:0:0 / 53
+---
 
+# Example Subnetting with Unique Local Addressing
 
- 
+**Organization: Contoso Corp**
 
+| Site      | IPv6 ULA Assignment     |
+| --------- | ----------------------- |
+| Sydney    | `FD6D:8D64:AF0C::/64`   |
+| Melbourne | `FD6D:8D64:AF0C:1::/64` |
+| Brisbane  | `FD6D:8D64:AF0C:2::/64` |
+| Adelaide  | `FD6D:8D64:AF0C:3::/64` |
 
-Example Subnetting using Unique Local Addressing scheme
-=======================================================
-Contoso Corp - IPv6 Unique Local Address Assignment Site
-
-IPv6 Unique Local Address Range Assignment
-
-Sydney
-FD6D:8D64:AF0C::/64
-
-Melbourne
-FD6D:8D64:AF0C:1::/64
-
-Brisbane
-FD6D:8D64:AF0C:2::/64
-
-Adelaide
-FD6D:8D64:AF0C:3::/64
-
-			
+---
