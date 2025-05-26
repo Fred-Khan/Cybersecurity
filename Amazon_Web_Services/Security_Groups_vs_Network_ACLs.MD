@@ -30,5 +30,9 @@ In AWS, **Security Groups** and **Network ACLs (Access Control Lists)** are both
 - Use **Network ACLs** for broader **subnet-wide filtering** (e.g., blocking specific IP ranges).
 - Combine both for **layered security**.
 
-Please read [this AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/security-groups.html) for further details.
+### Reference:
+1. [AWS documentation on VPC](https://docs.aws.amazon.com/vpc/latest/userguide/security-groups.html)
+2. [AWS documentation on VPC Security Groups](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html)
+3. [AWS documentation on VPC ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html)
+
 
