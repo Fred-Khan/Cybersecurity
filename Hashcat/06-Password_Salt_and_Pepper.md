@@ -29,9 +29,10 @@ The random salt is typically stored alongside the hashed password in the databas
 2. **Storage Format**:
    - The salt and the hash can be stored in various formats, but a common approach is to concatenate them into a single string or store them in separate fields within the same database record. Ideally we would like to store the salt in another table or better still in another table in a different database entirely.
    - For example, a database record might look like this:
-| user_id | username | salt | hashed_password |
-|----------|----------|----------|----------|
-| 1 | user1 | randomSaltValue | hashedPasswordValue
+     ```plaintext
+     user_id | username | salt               | hashed_password
+     1       | user1    | randomSaltValue    | hashedPasswordValue
+     ```
 
 3. **Password Verification**:
    - When a user attempts to log in, the system retrieves the stored salt and hash for that user.
