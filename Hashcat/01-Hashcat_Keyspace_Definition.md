@@ -21,11 +21,10 @@ Understanding keyspace is crucial for estimating the time and resources needed f
 
 1. **Estimating Runtime**
 - The size of the keyspace, combined with your device’s cracking speed (e.g. in MH/s or GH/s), gives you a ballpark estimate for how long an attack will take.
-- Example:  
-  If your keyspace is 208,827,064,576 and your system runs at 1,348 MH/s (i.e. 1.348 billion guesses/second), then:
-  \[
-  \text{Estimated Time} = \frac{208,827,064,576}{1,348,000,000} \approx 155 \text{ seconds} \approx 2.6 \text{ minutes}
-  \]
+- Example: 
+	If your keyspace is 208,827,064,576 and your system runs at 1,348 MH/s (i.e. 1.348 billion guesses/second), then:
+	**Estimated Time** = 208,827,064,576 ÷ 1,348,000,000 ≈ **155 seconds** ≈ **2.6 minutes**
+
 
 2. **Choosing the Right Attack**
 - A massive keyspace might steer you away from a full brute-force attack toward wordlists or rule-based attacks, which are more efficient.
