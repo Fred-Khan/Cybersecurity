@@ -17,8 +17,8 @@ Below are the detailed steps to install Docker, pull the Juice Shop image, and r
 3. **Start and Enable the Docker Service**  
    Start Docker and enable it to run on boot.  
    ```
-   sudo service docker start
-   sudo chkconfig docker on
+   sudo systemctl start docker
+   sudo systemctl enable docker
    ```
 
 4. **Add Your User to the Docker Group**  
